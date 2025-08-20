@@ -127,49 +127,36 @@ export default function App() {
       // 等待图表完全初始化
       await new Promise(resolve => setTimeout(resolve, 100))
       
-      console.log('开始获取历史K线数据...')
-      const bases = ['/fapi1', '/fapi2', '/fapi3', '/fapi4']
+      console.log(`开始获取历史K线数据，时间周期: ${interval}...`)
+      const bases = [
+        '/klines',
+        'https://fapi1.binance.com',
+        'https://fapi2.binance.com',
+        'https://fapi3.binance.com',
+        'https://fapi4.binance.com',
+        'https://testnet.binancefuture.com',
+      ]
       let ok = false
+      let usedBase = ''
       
-      // 设置请求超时
       const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 5000) // 5秒超时
+      const timeoutId = setTimeout(() => controller.abort(), 7000)
       
       for (const base of bases) {
         try {
           console.log(`尝试从 ${base} 获取数据...`)
-          const res = await fetch(`${base}/fapi/v1/klines?symbol=${symbol}&interval=${interval}&limit=500`, { 
-            cache: 'no-store',
-            signal: controller.signal
-          })
-          if (!res.ok) {
-            console.log(`${base} 响应状态: ${res.status}`)
-            continue
-          }
+          const url = base === '/klines' ? `${base}?symbol=${symbol}&interval=${interval}&limit=500` : `${base}/fapi/v1/klines?symbol=${symbol}&interval=${interval}&limit=500`
+          const res = await fetch(url, { cache: 'no-store', signal: controller.signal })
+          if (!res.ok) { console.log(`${base} 响应状态: ${res.status}`); continue }
           const raw = await res.json()
           if (cancelled) return
-          console.log(`从 ${base} 获取到 ${raw.length} 条K线数据`)
-          const hist: Candle[] = raw.map((r: any[]) => ({
-            time: (r[0] / 1000) as UTCTimestamp,
-            open: parseFloat(r[1]),
-            high: parseFloat(r[2]),
-            low: parseFloat(r[3]),
-            close: parseFloat(r[4]),
-          }))
-          
-          if (!cancelled && seriesRef.current) {
-            console.log('设置历史数据到图表...')
-            seriesRef.current.setData(hist as any)
-            ok = true
-            console.log('历史数据设置成功')
-            break
-          }
-        } catch (error: any) {
-          if (error.name === 'AbortError') {
-            console.log(`${base} 请求超时`)
-          } else {
-            console.log(`${base} 请求失败:`, error)
-          }
+          const hist: Candle[] = raw.map((r: any[]) => ({ time: (r[0] / 1000) as UTCTimestamp, open: parseFloat(r[1]), high: parseFloat(r[2]), low: parseFloat(r[3]), close: parseFloat(r[4]) }))
+          seriesRef.current?.setData(hist as any)
+          ok = true
+          usedBase = base
+          break
+        } catch (e: any) {
+          console.log(`${base} 请求失败:`, e)
           continue
         }
       }
