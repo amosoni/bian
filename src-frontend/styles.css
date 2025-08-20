@@ -1,0 +1,317 @@
+:root{--bg:#0f1115;--card:#131722;--text:#e2e8f0;--muted:#718096}
+*{box-sizing:border-box}
+.page {
+  background: #0f1115;
+  color: #ddd;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* 顶部信息栏 */
+.top-bar {
+  background: #1b1e26;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #2a2d35;
+}
+
+.price-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.symbol {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ddd;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ddd;
+}
+
+.change {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.change.positive {
+  color: #26a69a;
+  background: rgba(38, 166, 154, 0.1);
+}
+
+.change.negative {
+  color: #ef5350;
+  background: rgba(239, 83, 80, 0.1);
+}
+
+.market-info {
+  display: flex;
+  gap: 24px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.info-item .label {
+  font-size: 12px;
+  color: #718096;
+}
+
+.info-item .value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #ddd;
+}
+
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status {
+  font-size: 12px;
+}
+
+.status.connected {
+  color: #26a69a;
+}
+
+.status.disconnected {
+  color: #ef5350;
+}
+
+.status-text {
+  font-size: 14px;
+  color: #718096;
+}
+
+/* 图表控制栏 */
+.chart-controls {
+  background: #1b1e26;
+  padding: 12px 20px;
+  border-bottom: 1px solid #2a2d35;
+}
+
+.timeframe-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.timeframe-btn {
+  background: transparent;
+  border: 1px solid #2a2d35;
+  color: #718096;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.timeframe-btn:hover {
+  border-color: #26a69a;
+  color: #ddd;
+}
+
+.timeframe-btn.active {
+  background: #26a69a;
+  border-color: #26a69a;
+  color: #fff;
+}
+
+/* 主内容区域 */
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  grid-template-rows: 520px 200px;
+  gap: 1px;
+  background: #2a2d35;
+  height: calc(100vh - 140px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  grid-template-rows: 520px 200px;
+  gap: 1px;
+  background: #2a2d35;
+  height: calc(100vh - 140px);
+}
+
+.panel {
+  background: #0f1115;
+  padding: 20px;
+}
+
+.panel.chart {
+  grid-column: 1;
+  grid-row: 1;
+  padding: 0;
+}
+
+.panel.orderbook {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.panel.trades {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.panel.controls {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+/* 订单簿样式 */
+.orderbook h3, .trades h3 {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ddd;
+}
+
+.orderbook-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sell-orders, .buy-orders {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.order-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.order-row.sell {
+  background: rgba(239, 83, 80, 0.1);
+  color: #ef5350;
+}
+
+.order-row.buy {
+  background: rgba(38, 166, 154, 0.1);
+  color: #26a69a;
+}
+
+.current-price {
+  text-align: center;
+  padding: 8px;
+  background: rgba(26, 166, 154, 0.2);
+  border-radius: 4px;
+  font-weight: 600;
+  color: #26a69a;
+  margin: 8px 0;
+}
+
+/* 成交记录样式 */
+.trades-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.trade-row {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.trade-row.buy {
+  background: rgba(38, 166, 154, 0.1);
+  color: #26a69a;
+}
+
+.trade-row.sell {
+  background: rgba(239, 83, 80, 0.1);
+  color: #ef5350;
+}
+
+/* 交易控制面板 */
+.trading-controls {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.control-group label {
+  font-size: 12px;
+  color: #718096;
+}
+
+.control-group select,
+.control-group input {
+  background: #1b1e26;
+  border: 1px solid #2a2d35;
+  color: #ddd;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.control-group select:focus,
+.control-group input:focus {
+  outline: none;
+  border-color: #26a69a;
+}
+
+.trading-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-buy, .btn-sell {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-buy {
+  background: #26a69a;
+  color: #fff;
+}
+
+.btn-buy:hover {
+  background: #1e8a7a;
+}
+
+.btn-sell {
+  background: #ef5350;
+  color: #fff;
+}
+
+.btn-sell:hover {
+  background: #d32f2f;
+} 

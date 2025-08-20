@@ -1,0 +1,107 @@
+:root{--bg:#0f1115;--card:#131722;--text:#e2e8f0;--muted:#718096}
+*{box-sizing:border-box}
+.page {
+  background: #0f1115;
+  color: #ddd;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.bar {
+  background: #1b1e26;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid #2a2d35;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 600;
+  color: #26a69a;
+}
+
+.pair {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.status {
+  font-size: 12px;
+}
+
+.status.connected {
+  color: #26a69a;
+}
+
+.status.disconnected {
+  color: #ef5350;
+}
+
+.price-info {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ddd;
+}
+
+.change {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.change.positive {
+  color: #26a69a;
+  background: rgba(38, 166, 154, 0.1);
+}
+
+.change.negative {
+  color: #ef5350;
+  background: rgba(239, 83, 80, 0.1);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  grid-template-rows: 520px 200px;
+  gap: 1px;
+  background: #2a2d35;
+  height: calc(100vh - 60px);
+}
+
+.panel {
+  background: #0f1115;
+  padding: 20px;
+}
+
+.panel.chart {
+  grid-column: 1;
+  grid-row: 1;
+  padding: 0;
+}
+
+.panel.orderbook {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.panel.trades {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.panel.controls {
+  grid-column: 1;
+  grid-row: 2;
+} 
